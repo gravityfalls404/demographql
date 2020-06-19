@@ -1,11 +1,12 @@
-import './serviceWorker'
+import * as serviceWorker from './serviceWorker';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import AWSAppSyncClient, { AUTH_TYPE } from 'aws-appsync';
 import aws_config from './aws-exports';
-import { ApolloProvider } from 'react-apollo'
+import { ApolloProvider } from 'react-apollo';
+
 
 
 const client = new AWSAppSyncClient({
@@ -17,12 +18,18 @@ const client = new AWSAppSyncClient({
     }
 });
 
+const WithProvider=()=>{
+  return(
+  <ApolloProvider client={client}>
+    <App client={client}/>
+  </ApolloProvider>
+  )
+}
+
 
 
 ReactDOM.render(
-  <ApolloProvider client={client}>
-    <App client={client}/>
-  </ApolloProvider>,
+  <WithProvider/>,
   document.getElementById('root')
 )
 serviceWorker.unregister();

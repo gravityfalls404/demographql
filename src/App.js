@@ -3,64 +3,51 @@ import logo from './logo.svg';
 import './App.css';
 import gql from 'graphql-tag'
 import {graphql}  from 'react-apollo'
-import {listBlogs} from './graphql/queries'
+// import {listBlogs} from './graphql/queries'
 import { Query } from 'react-apollo'
 
-// const LIST_BLOGS =`{
-//         listBlogs {
-//     items {
-//       name
-//       id
-//       createdAt
-//     }
-//   }
-// }
+const listBlogs =`
+  query ListBlogs(
+    $filter: ModelBlogFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listBlogs(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        createdAt
+        updatedAt
+      }
       
-// `
+    }
+  }
+`;
 
 
 class App extends Component{
   constructor(props) {
     super(props)
   
-    this.state = {
-       bloglist:[]
-    }
+   
   }
 
-  getBlogList() {
-    this.props.client.query({
-      query: gql(listBlogs)
-  }).then(({ data }) => {
-    this.setState({
-      bloglist : data.listBlogs
-    })
-      console.log(data);
-  });
-  
-  }
   
   render(){
     return(
-      // <Query query={gql(LIST_BLOGS)}>
-      //   {({ loading, error, data }) => {
-      //     if (loading) return <div>Fetching</div>
-      //     if (error) return <div>Error</div>
-    
-      //     const bloglist = data.listBlogs.items
-    
-      //     return (
-      //       <div>
-      //         {bloglist.map(blog =><p>{blog}</p> ) }
-      //       </div>
-      //     )
-      //   }}
-      // </Query>
       <div>
+        <h2>HI</h2>
         {
-          this.state.bloglist
+          this.props.client.query({
+            query: gql(listBlogs)
+          }).then(({ data }) => {
+            console.log(data) 
+          }
+        )
         }
       </div>
+      
+      
     )
   }
 }

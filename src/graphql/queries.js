@@ -1,6 +1,5 @@
 /* eslint-disable */
-// this is an auto generated file. This will be overwr
-import gql from 'graphql-tag'
+// this is an auto generated file. This will be overwritten
 
 export const getBlog = /* GraphQL */ `
   query GetBlog($id: ID!) {
@@ -15,7 +14,7 @@ export const getBlog = /* GraphQL */ `
     }
   }
 `;
-export const listBlogs = `
+export const listBlogs = /* GraphQL */ `
   query ListBlogs(
     $filter: ModelBlogFilterInput
     $limit: Int
@@ -32,8 +31,6 @@ export const listBlogs = `
     }
   }
 `;
-
-
 export const getPost = /* GraphQL */ `
   query GetPost($id: ID!) {
     getPost(id: $id) {
